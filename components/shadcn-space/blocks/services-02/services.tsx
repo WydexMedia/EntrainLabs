@@ -1,9 +1,8 @@
 "use client";
+
 import Image from "next/image";
-import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Icon } from "@iconify/react";
+import { Marquee } from "@/components/shadcn-space/animations/marquee";
 import { cn } from "@/lib/utils";
 
 export interface ServiceItem {
@@ -39,79 +38,127 @@ export const servicesData: ServiceItem[] = [
     }
 ];
 
-function Services({ data = servicesData }: ServicesProps) {
-    const [activeIndex, setActiveIndex] = useState<number>(0);
+const marqueeRows = [
+    { reverse: true, offset: "ml-0" },
+    { reverse: false, offset: "-ml-24 md:-ml-40" },
+    { reverse: true, offset: "ml-10 md:ml-24" },
+];
 
-    const handleMouseEnter = (index: number) => {
-        setActiveIndex(index);
-    };
+function CourseImageCard({ item, index }: { item: ServiceItem; index: number }) {
+    return (
+        <div className="relative h-56 w-72 shrink-0 overflow-hidden rounded-md bg-muted md:h-64 md:w-96">
+            <Image
+                src={item.image}
+                alt={item.heading}
+                fill
+                sizes="(max-width: 768px) 288px, 384px"
+                className="object-cover"
+            />
+            <div className="absolute left-4 top-4 flex size-11 items-center justify-center rounded-full bg-background/90 text-sm font-semibold text-foreground shadow-sm backdrop-blur">
+                {String(index + 1).padStart(2, "0")}
+            </div>
+        </div>
+    );
+}
+
+function CourseInfoCard({ item }: { item: ServiceItem }) {
+    return (
+        <div className="relative flex h-56 w-72 shrink-0 flex-col justify-end overflow-hidden rounded-md border border-border bg-primary p-6 text-primary-foreground md:h-64 md:w-96">
+            <div>
+                <h3 className="text-2xl font-semibold leading-tight md:text-3xl">{item.heading}</h3>
+                <div className="mt-3 h-px w-full bg-primary-foreground/35" />
+                <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-primary-foreground/85 md:text-base">
+                    {item.descp}
+                </p>
+            </div>
+        </div>
+    );
+}
+
+function TitleCard() {
+    return (
+        <div className="flex h-56 w-72 shrink-0 flex-col justify-center rounded-md bg-background px-8 md:h-64 md:w-96">
+            <Badge variant="outline" className="mb-4 w-fit py-1 px-3 h-auto text-sm font-normal border-border/80 bg-background">
+                Courses
+            </Badge>
+            <h2 className="text-5xl font-semibold leading-none text-foreground md:text-7xl">
+                Our<br />Courses
+            </h2>
+        </div>
+    );
+}
+
+function DescriptionCard() {
+    return (
+        <div className="flex h-56 w-[28rem] shrink-0 items-center rounded-md bg-background px-8 md:h-64 md:w-[40rem]">
+            <p className="text-xl font-medium leading-tight text-foreground md:text-3xl">
+                Comprehensive digital marketing training designed to give you real-world skills and hands-on experience with industry-leading tools and strategies.
+            </p>
+        </div>
+    );
+}
+
+function CtaCard() {
+    return (
+        <a
+            href="#contact"
+            className="group flex h-56 w-72 shrink-0 flex-col justify-between rounded-md border border-border bg-card p-6 text-card-foreground transition-transform duration-300 hover:-translate-y-1 md:h-64 md:w-80"
+        >
+            <span />
+            <span className="text-4xl font-semibold leading-none md:text-5xl">
+                Enroll<br />Now
+            </span>
+        </a>
+    );
+}
+
+function getRowItems(data: ServiceItem[], rowIndex: number) {
+    const shifted = [...data.slice(rowIndex), ...data.slice(0, rowIndex)];
+    const cards = shifted.flatMap((item, index) => [
+        <CourseImageCard key={`${rowIndex}-${item.heading}-image`} item={item} index={(index + rowIndex) % data.length} />,
+        <CourseInfoCard key={`${rowIndex}-${item.heading}-info`} item={item} />,
+    ]);
+
+    if (rowIndex === 0) {
+        cards.splice(1, 0, <TitleCard key={`${rowIndex}-title`} />);
+    }
+
+    if (rowIndex === 1) {
+        cards.splice(2, 0, <DescriptionCard key={`${rowIndex}-description`} />);
+    }
+
+    if (rowIndex === 2) {
+        cards.splice(1, 0, <CtaCard key={`${rowIndex}-cta`} />);
+    }
+
+    return cards;
+}
+
+function Services({ data = servicesData }: ServicesProps) {
+    const rows = marqueeRows.map((row, index) => ({
+        ...row,
+        items: getRowItems(data, index),
+    }));
 
     return (
-        <section className="bg-background">
-            <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 lg:py-20 sm:py-12 py-8">
-                <div className="flex flex-col sm:gap-16 gap-8">
-                    <div className="flex md:flex-row flex-col justify-between md:items-end items-start gap-4">
-                        <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-left-10 duration-1000 delay-200 ease-in-out fill-mode-both">
-                            <Badge variant="outline" className="py-1 px-3 h-auto text-sm font-normal border-0 outline outline-border">
-                                Courses
-                            </Badge>
-                            <h2 className="sm:text-5xl text-3xl text-foreground font-semibold">Our Courses</h2>
-                            <p className="max-w-2xl text-muted-foreground sm:text-lg text-base">
-                                Comprehensive digital marketing training designed to give you real-world skills and hands-on experience with industry-leading tools and strategies.
-                            </p>
-                        </div>
-                        <Button
-                            className={"group p-1 bg-primary hover:bg-primary/80 text-white font-medium flex gap-2 lg:gap-3 justify-between items-center rounded-full w-fit ps-5 h-auto border-0 animate-in fade-in slide-in-from-right-10 duration-1000 delay-200 ease-in-out fill-mode-both"}
-                        >
-                            <a href="#contact" className="flex items-center gap-3 text-primary-foreground text-sm font-medium">
-                                Enroll Now
-                                <div className="p-2 bg-background rounded-full group-hover:rotate-45 transition-transform duration-300 ease-in-out">
-                                    <Icon
-                                        className="text-foreground"
-                                        icon="lucide:arrow-up-right"
-                                        width={16}
-                                        height={16}
-                                    />
-                                </div>
-                            </a>
-                        </Button>
-                    </div>
-                    <div className="grid grid-cols-12 relative gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200 ease-in-out fill-mode-both">
-                        <div className="w-full lg:col-span-4 col-span-12 flex items-center justify-center">
-                            <div className={`transition-all duration-300 z-10 h-80`} >
-                                {data?.[activeIndex]?.image && (
-                                    <Image
-                                        src={data[activeIndex].image}
-                                        alt="Service Image"
-                                        width={400}
-                                        height={250}
-                                        className="w-full h-full object-cover"
-                                    />
-                                )}
-                            </div>
-                        </div>
-                        <div className="lg:col-span-1" />
-                        <div className="w-full flex flex-col gap-16 lg:col-span-7 col-span-12">
-                            <div>
-                                {data?.map((value, index) => (
-                                    <div
-                                        key={index}
-                                        onMouseEnter={(e) => handleMouseEnter(index)}
-                                        className="group py-6 xl:py-10 border-t border-border cursor-pointer flex xl:flex-row flex-col xl:items-center items-start justify-between xl:gap-10 gap-1 relative">
-                                        <h3 className={cn("group-hover:text-teal-400 py-1 text-2xl md:text-3xl font-semibold text-foreground max-w-2xs w-full", activeIndex === index ? "text-teal-400" : "")}>
-                                            {value.heading}
-                                        </h3>
-                                        {activeIndex === index && (
-                                            <p className="text-muted-foreground text-base transition-all duration-300 flex-1">
-                                                {value.descp}
-                                            </p>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <section className="relative overflow-hidden bg-background py-8 sm:py-12 lg:py-16">
+            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
+            <div className="relative flex w-full flex-col gap-2">
+                {rows.map((row, index) => (
+                    <Marquee
+                        key={index}
+                        reverse={row.reverse}
+                        pauseOnHover
+                        repeat={3}
+                        className={cn("p-0 [--duration:34s] [--gap:0.5rem]", row.offset)}
+                    >
+                        {row.items}
+                    </Marquee>
+                ))}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-background to-transparent md:w-36" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-background to-transparent md:w-36" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-linear-to-b from-background to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-linear-to-t from-background to-transparent" />
             </div>
         </section>
     );
