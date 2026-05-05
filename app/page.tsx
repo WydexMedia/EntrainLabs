@@ -60,17 +60,17 @@ export default function Home() {
       <div id="mentors">
         <Team />
       </div>
-      <div id="testimonials">
-        <Testimonial />
-      </div>
       <div id="courses">
         <CoursesSection />
       </div>
       <CTA />
       <FAQ />
-      <section id="contact" className="py-8 md:py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
+      <div id="testimonials">
+        <Testimonial />
+      </div>
+      <section id="contact" className="bg-background py-10 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-16">
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
             <ContactInfo />
             <ContactForm />
           </div>
