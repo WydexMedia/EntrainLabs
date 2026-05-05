@@ -6,7 +6,7 @@ const Logo = (props: SVGAttributes<SVGElement>) => {
   return (
     <div className={cn("flex items-center gap-2.5", props.className)}>
       <Image 
-        src="/logo.png" 
+        src="/Logo.png" 
         alt="Entrain Labs" 
         width={150} 
         height={40}
