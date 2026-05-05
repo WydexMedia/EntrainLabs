@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# screenshots
+desktop.png
+tablet.png
+mobile.png
+*.png
+!public/**/*.png
+
+# documentation (screenshot tool)
+SCREENSHOT-TOOL.md
+SCREENSHOT-QUICK.md
+QUICKSTART.md
+SETUP.md
+screenshot.js
