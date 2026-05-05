@@ -187,7 +187,7 @@ const Footer = () => {
                       href="mailto:contact@example.com"
                       className="text-base font-normal text-muted-foreground hover:text-foreground"
                     >
-                      hello@shadcnspace.com
+                      contact@entrainlabs.com
                     </a>
                   </li>
                   <li>
@@ -204,7 +204,7 @@ const Footer = () => {
           </div>
           <Separator orientation="horizontal" />
           <p className="text-sm font-normal text-muted-foreground text-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-100 ease-in-out fill-mode-both">
-            ©2026 Shadcn Space. All Rights Reserved
+            ©2026 Entrain Labs. All Rights Reserved
           </p>
         </div>
       </div>
