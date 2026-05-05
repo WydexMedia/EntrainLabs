@@ -68,7 +68,7 @@ export default function Home() {
       </div>
       <CTA />
       <FAQ />
-      <section id="contact" className="py-20 bg-muted/50">
+      <section id="contact" className="py-8 md:py-20 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             <ContactInfo />

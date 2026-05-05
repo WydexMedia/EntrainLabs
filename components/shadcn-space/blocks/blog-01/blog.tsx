@@ -35,7 +35,7 @@ const Blog = () => {
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
-    <section ref={sectionRef} className="py-10 md:py-20">
+    <section ref={sectionRef} className="py-8 md:py-20">
       <div className="max-w-7xl xl:px-16 lg:px-8 px-4 mx-auto">
         <div className="flex flex-col gap-16">
           {/* header */}
