@@ -1,9 +1,18 @@
 "use client";
 
-import { useRef } from "react";
+import Image from "next/image";
+import { useMemo, useRef } from "react";
+import { Instrument_Serif } from "next/font/google";
 import { Badge } from "@/components/ui/badge";
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import { Marquee } from "@/components/shadcn-space/animations/marquee";
+import { Quote } from "lucide-react";
 import { motion, useInView } from "motion/react";
+
+const instrumentSerif = Instrument_Serif({
+    subsets: ["latin"],
+    weight: ["400"],
+    style: ["italic"],
+});
 
 export interface Testimonial {
     quote: string;
@@ -33,87 +42,136 @@ const defaultTestimonials: Testimonial[] = [
     },
 ];
 
+const columnStyles = [
+    "hidden lg:flex",
+    "flex",
+    "hidden md:flex",
+];
+
+function getHandle(author: string) {
+    return `@${author.toLowerCase().replace(/[^a-z0-9]+/g, "")}`;
+}
+
+function repeatTestimonials(testimonials: Testimonial[]) {
+    if (testimonials.length === 0) {
+        return [];
+    }
+
+    return Array.from({ length: 12 }, (_, index) => ({
+        ...testimonials[index % testimonials.length],
+        id: index,
+    }));
+}
+
+function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+    return (
+        <article className="w-full rounded-md border border-border bg-card p-5 shadow-sm transition-colors duration-300 hover:bg-muted/40">
+            <div className="flex items-center gap-3">
+                <div className="relative size-11 shrink-0 overflow-hidden rounded-full bg-muted">
+                    <Image
+                        src={testimonial.image}
+                        alt={testimonial.author}
+                        fill
+                        sizes="44px"
+                        className="object-cover"
+                    />
+                </div>
+                <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-foreground">
+                        {testimonial.author}
+                    </p>
+                    <p className="truncate text-xs text-muted-foreground">
+                        {getHandle(testimonial.author)}
+                    </p>
+                </div>
+                <Quote className="ml-auto size-4 shrink-0 text-muted-foreground" />
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                {testimonial.quote}
+            </p>
+            <div className="mt-5 border-t border-border pt-4">
+                <p className="text-xs font-medium text-foreground">
+                    {testimonial.role}
+                </p>
+            </div>
+        </article>
+    );
+}
+
+function TestimonialTitle({ title }: { title: string }) {
+    if (!title.includes("Students")) {
+        return <>{title}</>;
+    }
+
+    const [before, after] = title.split("Students");
+
+    return (
+        <>
+            {before}
+            <span className={instrumentSerif.className}>Students</span>
+            {after}
+        </>
+    );
+}
+
 export default function Testimonial01({
+    badge = "Testimonials",
+    title = "What Our Students Say",
     testimonials = defaultTestimonials,
 }: Testimonial01Props) {
     const sectionRef = useRef<HTMLElement>(null);
     const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+    const cards = useMemo(() => repeatTestimonials(testimonials), [testimonials]);
+    const columns = [cards.slice(0, 4), cards.slice(4, 8), cards.slice(8, 12)];
 
     return (
-        <section ref={sectionRef}>
-            <div className="max-w-7xl mx-auto sm:px-16 px-4 pt-8 md:pt-12">
-                <div className="">
-                    <motion.div
-                        initial={{ opacity: 0, y: -40 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -40 }}
-                        transition={{ duration: 1, delay: 0.2, ease: "easeInOut" }}
-                        className="flex flex-col gap-3"
-                    >
-                        <Badge className="text-sm h-auto py-1 px-3 border-0 w-fit">
-                            Testimonials
-                        </Badge>
-                        <h2 className="sm:text-5xl text-xl leading-none font-medium tracking">
-                            What Our Students Say
-                        </h2>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                        transition={{ duration: 1, delay: 0.2, ease: "easeInOut" }}
-                        className="pt-12 pb-8"
-                    >
-                        <Carousel>
-                            <CarouselContent>
-                                {testimonials.map((testimonial, index) => (
-                                    <CarouselItem key={index}>
-                                        <div className="grid grid-cols-12 gap-6 items-center">
-                                            <div className="lg:col-span-8 col-span-12 flex sm:flex-row flex-col sm:gap-10 gap-6 lg:pe-12">
-                                                <div className="shrink-0 flex items-start">
-                                                    <img
-                                                        src="https://images.shadcnspace.com/assets/svgs/icon-quote.svg"
-                                                        alt="muted quote"
-                                                        className="dark:hidden"
-                                                    />
-                                                    <img
-                                                        src="https://images.shadcnspace.com/assets/svgs/icon-quote-white.svg"
-                                                        alt="muted quote"
-                                                        className="hidden dark:block"
-                                                    />
-                                                </div>
-                                                <div className="flex flex-col gap-12">
-                                                    <p className="sm:text-4xl text-xl text-muted-foreground">
-                                                        {testimonial.quote}
-                                                    </p>
-                                                    <div>
-                                                        <p className="text-base font-medium ">
-                                                            {testimonial.author}
-                                                        </p>
-                                                        <p className="text-sm text-muted-foreground">
-                                                            {testimonial.role}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="md:col-span-4 col-span-12">
-                                                <div className="rounded-xl overflow-hidden">
-                                                    <img
-                                                        src={testimonial.image}
-                                                        alt={testimonial.author}
-                                                        width={500}
-                                                        height={500}
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </CarouselItem>
+        <section ref={sectionRef} className="relative overflow-hidden py-10 md:py-16">
+            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
+            <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-16">
+                <motion.div
+                    initial={{ opacity: 0, y: -32 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -32 }}
+                    transition={{ duration: 0.8, delay: 0.1, ease: "easeInOut" }}
+                    className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center"
+                >
+                    <Badge variant="outline" className="h-auto w-fit bg-background px-3 py-1 text-sm font-normal">
+                        {badge}
+                    </Badge>
+                    <h2 className="text-4xl font-medium leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+                        <TestimonialTitle title={title} />
+                    </h2>
+                    <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
+                        Real experiences, genuine feedback from learners who turned practical training into career momentum.
+                    </p>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+                    className="relative mt-10 grid h-[680px] grid-cols-1 gap-4 overflow-hidden md:grid-cols-2 lg:grid-cols-3"
+                >
+                    {columns.map((column, columnIndex) => (
+                        <div key={columnIndex} className={columnStyles[columnIndex]}>
+                            <Marquee
+                                vertical
+                                reverse={columnIndex === 1}
+                                pauseOnHover
+                                repeat={3}
+                                className="h-full w-full p-0 [--duration:34s] [--gap:1rem]"
+                            >
+                                {column.map((testimonial) => (
+                                    <TestimonialCard
+                                        key={`${testimonial.author}-${testimonial.id}`}
+                                        testimonial={testimonial}
+                                    />
                                 ))}
-                            </CarouselContent>
-                            <CarouselPrevious className={"-top-20 left-auto right-12 size-8 cursor-pointer"} />
-                            <CarouselNext className={"-top-20 right-0 size-8 cursor-pointer"} />
-                        </Carousel>
-                    </motion.div>
-                </div>
+                            </Marquee>
+                        </div>
+                    ))}
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-background to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-background to-transparent" />
+                </motion.div>
             </div>
         </section>
     );
