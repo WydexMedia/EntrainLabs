@@ -14,19 +14,19 @@ type BlogData = {
 
 const blogData: BlogData[] = [
   {
-    coverImage: "https://images.shadcnspace.com/assets/blog/blog-1.webp",
-    title: "Our latest brand redesign",
-    date: "2026-01-01",
+    coverImage: "https://images.unsplash.com/photo-1557838923-2985c318be48?w=800&q=80",
+    title: "Top 10 Digital Marketing Trends to Watch in 2026",
+    date: "2026-04-15",
   },
   {
-    coverImage: "https://images.shadcnspace.com/assets/blog/blog-2.webp",
-    title: "Recognized for design",
-    date: "2026-01-03",
+    coverImage: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&q=80",
+    title: "How AI is Transforming Social Media Marketing",
+    date: "2026-04-10",
   },
   {
-    coverImage: "https://images.shadcnspace.com/assets/blog/blog-3.webp",
-    title: "Journey of footballer",
-    date: "2026-01-05",
+    coverImage: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+    title: "SEO Best Practices for 2026: A Complete Guide",
+    date: "2026-04-05",
   },
 ];
 
@@ -52,11 +52,11 @@ const Blog = () => {
                 variant={"outline"}
                 className="text-sm font-normal py-1 px-3 h-7"
               >
-                Resources
+                Blog & Insights
               </Badge>
               {/* Heading */}
               <h2 className="text-foreground text-3xl sm:text-5xl font-semibold">
-                Recent news
+                Latest from Our Blog
               </h2>
             </motion.div>
             {/* description */}
@@ -66,9 +66,7 @@ const Blog = () => {
               transition={{ duration: 1, delay: 0.1, ease: "easeInOut" }}
               className="text-base font-normal text-muted-foreground max-w-xl"
             >
-              Explore the latest trends, bold projects, and creative insights
-              from our agency shaping the future of branding, digital
-              experiences, and storytelling.
+              Stay updated with the latest digital marketing strategies, industry insights, and expert tips to help you succeed in the ever-evolving world of online marketing.
             </motion.p>
           </div>
           {/* blogs */}
