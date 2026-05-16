@@ -26,6 +26,7 @@ export default function RadialOrbitalTimeline({
   const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({});
   const [centerOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
@@ -40,6 +41,11 @@ export default function RadialOrbitalTimeline({
     5: { bg: 'bg-pink-100/95', border: 'border-pink-200', text: 'text-pink-900' },
     6: { bg: 'bg-indigo-100/95', border: 'border-indigo-200', text: 'text-indigo-900' },
   };
+
+  // Set mounted state on client side only
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === containerRef.current || e.target === orbitRef.current) {
@@ -81,18 +87,23 @@ export default function RadialOrbitalTimeline({
 
   useEffect(() => {
     let rotationTimer: ReturnType<typeof setInterval>;
-    if (autoRotate) {
+    if (autoRotate && isMounted) {
+      // Detect if mobile for smoother animation
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+      const rotationSpeed = isMobile ? 0.2 : 0.3; // Slower on mobile
+      const interval = isMobile ? 60 : 50; // Less frequent updates on mobile
+      
       rotationTimer = setInterval(() => {
         setRotationAngle((prev) => {
-          const newAngle = (prev + 0.3) % 360;
+          const newAngle = (prev + rotationSpeed) % 360;
           return Number(newAngle.toFixed(3));
         });
-      }, 50);
+      }, interval);
     }
     return () => {
       if (rotationTimer) clearInterval(rotationTimer);
     };
-  }, [autoRotate]);
+  }, [autoRotate, isMounted]);
 
   const centerViewOnNode = (nodeId: number) => {
     if (!nodeRefs.current[nodeId]) return;
@@ -104,8 +115,8 @@ export default function RadialOrbitalTimeline({
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    // Responsive radius: smaller on mobile, larger on desktop
-    const radius = typeof window !== 'undefined' && window.innerWidth < 640 ? 120 : 200;
+    // Use default radius for SSR, then responsive radius on client
+    const radius = isMounted && typeof window !== 'undefined' && window.innerWidth < 640 ? 120 : 200;
     const radian = (angle * Math.PI) / 180;
     const x = radius * Math.cos(radian) + centerOffset.x;
     const y = radius * Math.sin(radian) + centerOffset.y;
@@ -157,8 +168,8 @@ export default function RadialOrbitalTimeline({
           {/* Orbit ring */}
           <div className="absolute w-60 h-60 sm:w-96 sm:h-96 rounded-full border border-white/10"></div>
 
-          {/* Nodes */}
-          {timelineData.map((item, index) => {
+          {/* Nodes - only render after mount to avoid hydration issues */}
+          {isMounted && timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
             const isExpanded = expandedItems[item.id];
             const isRelated = isRelatedToActive(item.id);
@@ -170,11 +181,12 @@ export default function RadialOrbitalTimeline({
                 ref={(el) => {
                   nodeRefs.current[item.id] = el;
                 }}
-                className="absolute transition-all duration-700 cursor-pointer"
+                className="absolute cursor-pointer will-change-transform"
                 style={{
                   transform: `translate(${position.x}px, ${position.y}px)`,
                   zIndex: isExpanded ? 200 : position.zIndex,
                   opacity: isExpanded ? 1 : position.opacity,
+                  transition: 'opacity 0.7s ease-out, z-index 0s',
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
