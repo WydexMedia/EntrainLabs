@@ -57,17 +57,18 @@ export default function Home() {
         <AboutAndStats01 />
       </div>
       <Feature01 />
-      <div id="mentors">
+      {/* <div id="mentors">
         <Team />
-      </div>
+      </div> */}
       <div id="courses">
         <CoursesSection />
       </div>
       <CTA />
       <FAQ />
-      <div id="testimonials">
+      {/* <div id="testimonials">
         <Testimonial />
-      </div>
+      </div> */}
+      <Blog />
       <section id="contact" className="bg-background py-10 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-16">
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
@@ -76,7 +77,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Blog />
+      
       <Footer />
     </main>
   );
