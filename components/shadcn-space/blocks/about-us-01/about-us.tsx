@@ -133,7 +133,7 @@ const AboutUs = ({
           <p className="text-base sm:text-xs font-bold uppercase tracking-[0.2em]">02 — Deep Understanding</p>
           <hr className="my-[2vw] border-none border-t border-black/60" />
           <div className="flex-1 flex items-center justify-start text-left md:justify-start md:items-start">
-            <h3 className="text-[clamp(2rem,9vw,10rem)] sm:text-[clamp(3.5rem,12vw,10rem)] font-bold leading-[0.85] uppercase tracking-tight">
+            <h3 className="text-[clamp(2.75rem,9vw,10rem)] sm:text-[clamp(3.5rem,12vw,10rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Professional<br />Environment
             </h3>
           </div>
