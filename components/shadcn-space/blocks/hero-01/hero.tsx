@@ -2,8 +2,10 @@
 
 import { Instrument_Serif } from "next/font/google";
 import { Button } from "@/components/ui/button";
-import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -20,17 +22,64 @@ type HeroSectionProps = {
 };
 
 function HeroSection({ avatarList }: HeroSectionProps) {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    // Animate heading with split text effect
+    if (headingRef.current) {
+      gsap.set(headingRef.current, { opacity: 1 });
+      tl.from(headingRef.current, {
+        y: 100,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power4.out",
+      });
+    }
+
+    // Animate paragraph
+    if (paragraphRef.current) {
+      tl.from(
+        paragraphRef.current,
+        {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.8"
+      );
+    }
+
+    // Animate CTA section
+    if (ctaRef.current) {
+      tl.from(
+        ctaRef.current,
+        {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.6"
+      );
+    }
+  }, { scope: heroRef });
+
   return (
-    <section className="min-h-[100dvh] flex items-center justify-center">
+    <section ref={heroRef} className="min-h-[100dvh] flex items-center justify-center">
       <div className="w-full h-full relative">
         <div className="relative w-full py-8 md:py-20 before:absolute before:w-full before:h-full before:bg-linear-to-r before:from-sky-100 before:via-white before:to-amber-100 before:rounded-full before:top-24 before:blur-3xl before:-z-10 dark:before:from-slate-800 dark:before:via-black dark:before:to-stone-700 dark:before:rounded-full dark:before:blur-3xl dark:before:-z-10">
           <div className="container mx-auto relative z-10">
             <div className="flex flex-col max-w-5xl mx-auto gap-8">
               <div className="relative flex flex-col text-center items-center sm:gap-6 gap-4">
-                <motion.h1
-                  initial={{ opacity: 0, y: 32 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, ease: "easeInOut" }}
+                <h1
+                  ref={headingRef}
+                  style={{ opacity: 0 }}
                   className="lg:text-8xl md:text-7xl text-5xl font-medium leading-14 md:leading-20 lg:leading-24"
                 >
                   Where Learning Meets{" "}
@@ -39,20 +88,16 @@ function HeroSection({ avatarList }: HeroSectionProps) {
                   >
                     Real-World Experience
                   </span>
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 32 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.1, ease: "easeInOut" }}
+                </h1>
+                <p
+                  ref={paragraphRef}
                   className="text-base font-normal max-w-2xl text-muted-foreground"
                 >
                   Entrain Labs is a career-focused platform that bridges the gap between learning and real-world digital marketing. Backed by the best digital marketing academy in Kerala, we offer practical training, live projects, and expert guidance to help you build a successful career.
-                </motion.p>
+                </p>
               </div>
-              <motion.div
-                initial={{ opacity: 0, y: 32 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2, ease: "easeInOut" }}
+              <div
+                ref={ctaRef}
                 className="flex items-center flex-col md:flex-row justify-center gap-8"
               >
                 <Button className="relative text-sm font-medium rounded-full h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer">
@@ -93,7 +138,7 @@ function HeroSection({ avatarList }: HeroSectionProps) {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
