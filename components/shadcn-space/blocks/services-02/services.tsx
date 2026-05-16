@@ -61,13 +61,25 @@ function CourseImageCard({ item, index }: { item: ServiceItem; index: number }) 
     );
 }
 
-function CourseInfoCard({ item }: { item: ServiceItem }) {
+function CourseInfoCard({ item, index }: { item: ServiceItem; index: number }) {
+    // Lighter color mapping for each course
+    const courseColors = [
+        'bg-blue-100 text-blue-900 border-blue-200',      // Performance Marketing
+        'bg-purple-100 text-purple-900 border-purple-200',    // Web Development
+        'bg-green-100 text-green-900 border-green-200',     // Content Creation
+        'bg-orange-100 text-orange-900 border-orange-200',    // SEO
+        'bg-pink-100 text-pink-900 border-pink-200',      // Social Media Marketing
+        'bg-indigo-100 text-indigo-900 border-indigo-200',    // Email Marketing
+    ];
+    
+    const colorClass = courseColors[index % courseColors.length];
+    
     return (
-        <div className="relative flex h-56 w-72 shrink-0 flex-col justify-end overflow-hidden rounded-md border border-border bg-primary p-6 text-primary-foreground md:h-64 md:w-96">
+        <div className={`relative flex h-56 w-72 shrink-0 flex-col justify-end overflow-hidden rounded-md border p-6 md:h-64 md:w-96 ${colorClass}`}>
             <div>
                 <h3 className="text-2xl font-semibold leading-tight md:text-3xl">{item.heading}</h3>
-                <div className="mt-3 h-px w-full bg-primary-foreground/35" />
-                <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-primary-foreground/85 md:text-base">
+                <div className="mt-3 h-px w-full bg-current opacity-25" />
+                <p className="mt-3 line-clamp-3 text-sm leading-relaxed opacity-80 md:text-base">
                     {item.descp}
                 </p>
             </div>
@@ -114,10 +126,13 @@ function CtaCard() {
 
 function getRowItems(data: ServiceItem[], rowIndex: number) {
     const shifted = [...data.slice(rowIndex), ...data.slice(0, rowIndex)];
-    const cards = shifted.flatMap((item, index) => [
-        <CourseImageCard key={`${rowIndex}-${item.heading}-image`} item={item} index={(index + rowIndex) % data.length} />,
-        <CourseInfoCard key={`${rowIndex}-${item.heading}-info`} item={item} />,
-    ]);
+    const cards = shifted.flatMap((item, index) => {
+        const actualIndex = (index + rowIndex) % data.length;
+        return [
+            <CourseImageCard key={`${rowIndex}-${item.heading}-image`} item={item} index={actualIndex} />,
+            <CourseInfoCard key={`${rowIndex}-${item.heading}-info`} item={item} index={actualIndex} />,
+        ];
+    });
 
     if (rowIndex === 0) {
         cards.splice(1, 0, <TitleCard key={`${rowIndex}-title`} />);

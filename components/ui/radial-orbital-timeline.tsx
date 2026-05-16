@@ -31,6 +31,16 @@ export default function RadialOrbitalTimeline({
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
+  // Lighter color mapping for each course
+  const courseColors: Record<number, { bg: string; border: string; text: string }> = {
+    1: { bg: 'bg-blue-100/95', border: 'border-blue-200', text: 'text-blue-900' },
+    2: { bg: 'bg-purple-100/95', border: 'border-purple-200', text: 'text-purple-900' },
+    3: { bg: 'bg-green-100/95', border: 'border-green-200', text: 'text-green-900' },
+    4: { bg: 'bg-orange-100/95', border: 'border-orange-200', text: 'text-orange-900' },
+    5: { bg: 'bg-pink-100/95', border: 'border-pink-200', text: 'text-pink-900' },
+    6: { bg: 'bg-indigo-100/95', border: 'border-indigo-200', text: 'text-indigo-900' },
+  };
+
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === containerRef.current || e.target === orbitRef.current) {
       setExpandedItems({});
@@ -203,15 +213,15 @@ export default function RadialOrbitalTimeline({
 
                 {/* Expanded card */}
                 {isExpanded && (
-                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-64 bg-black/90 backdrop-blur-lg border-white/30 shadow-xl shadow-white/10 overflow-visible">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-white/50"></div>
+                  <Card className={`absolute top-20 left-1/2 -translate-x-1/2 w-64 ${courseColors[item.id]?.bg || 'bg-black/90'} backdrop-blur-lg ${courseColors[item.id]?.border || 'border-white/30'} shadow-xl overflow-visible`}>
+                    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 ${courseColors[item.id]?.text.replace('text-', 'bg-') || 'bg-white/50'}`}></div>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-xs font-mono text-white/50">{item.date}</span>
+                        <span className={`text-xs font-mono ${courseColors[item.id]?.text || 'text-white/50'} opacity-60`}>{item.date}</span>
                       </div>
-                      <p className="text-sm font-semibold mt-1 text-white">{item.title}</p>
+                      <p className={`text-sm font-semibold mt-1 ${courseColors[item.id]?.text || 'text-white'}`}>{item.title}</p>
                     </CardHeader>
-                    <CardContent className="text-xs text-white/80">
+                    <CardContent className={`text-xs ${courseColors[item.id]?.text || 'text-white/90'} opacity-80`}>
                       <p>{item.content}</p>
                     </CardContent>
                   </Card>
