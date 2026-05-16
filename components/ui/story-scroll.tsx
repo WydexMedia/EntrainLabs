@@ -27,12 +27,12 @@ export const FlowSection: React.FC<FlowSectionProps> = ({
   <section
     data-flow-section
     aria-label={ariaLabel}
-    className={cx('relative h-screen w-full overflow-hidden', className)}
+    className={cx('relative h-[60vh] sm:h-[75vh] lg:h-screen w-full overflow-hidden', className)}
   >
     <div
       data-flow-inner
       className={cx(
-        'flow-art-container relative flex h-screen w-full flex-col justify-between gap-6 px-[4vw] pt-[clamp(2rem,8vw,4vw)] pb-[4vw]',
+        'flow-art-container relative flex h-[60vh] sm:h-[75vh] lg:h-screen w-full flex-col justify-between gap-2 sm:gap-3 lg:gap-6 px-[4vw] pt-[clamp(1.25rem,5vw,4vw)] pb-[2.5vw] sm:pb-[3.5vw]',
         'will-change-transform',
       )}
       style={{ transformOrigin: 'bottom left', ...style }}
