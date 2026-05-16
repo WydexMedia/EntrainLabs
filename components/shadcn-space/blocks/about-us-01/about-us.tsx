@@ -7,6 +7,7 @@ import { Instrument_Serif } from "next/font/google";
 import { motion } from "motion/react";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 import FlowArt, { FlowSection } from "@/components/ui/story-scroll";
+import Galaxy from "@/components/ui/galaxy";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -205,8 +206,26 @@ const AboutUs = ({
       </FlowArt>
 
       {/* Your Journey Section */}
-      <section className="lg:py-20 sm:py-12 py-8" style={{ backgroundColor: '#000', color: '#fff' }}>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-16">
+      <section className="lg:py-20 sm:py-12 py-8 relative" style={{ backgroundColor: '#000', color: '#fff' }}>
+        {/* Galaxy Background */}
+        <div className="absolute inset-0 w-full h-full">
+          <Galaxy
+            mouseRepulsion
+            mouseInteraction
+            density={1}
+            glowIntensity={0.3}
+            saturation={0}
+            hueShift={140}
+            twinkleIntensity={0.3}
+            rotationSpeed={0.1}
+            repulsionStrength={2}
+            autoCenterRepulsion={0}
+            starSpeed={0.5}
+            speed={1}
+          />
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-16 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
