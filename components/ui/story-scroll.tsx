@@ -127,7 +127,7 @@ const FlowArt: React.FC<FlowArtProps> = ({
     <main
       ref={containerRef}
       aria-label={ariaLabel}
-      className={cx('w-full overflow-x-hidden', className)}
+      className={cx('w-full overflow-x-hidden overflow-y-auto', className)}
     >
       {children}
     </main>

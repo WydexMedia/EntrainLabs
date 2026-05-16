@@ -98,7 +98,7 @@ const AboutUs = ({
         >
           <p className="text-base sm:text-xs font-bold uppercase tracking-[0.2em]">Learn by Doing</p>
           <hr className="my-[2vw] border-none border-t border-white/40 opacity-100" />
-          <div>
+          <div className="flex-1 flex items-center justify-center text-center md:text-left md:justify-start md:items-start">
             <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Don't Just<br />Learn —<br />Start Doing
             </h3>
@@ -115,7 +115,7 @@ const AboutUs = ({
         >
           <p className="text-base sm:text-xs font-bold uppercase tracking-[0.2em]">01 — Real Execution</p>
           <hr className="my-[2vw] border-none border-t border-white/60" />
-          <div>
+          <div className="flex-1 flex items-center justify-center text-center md:text-left md:justify-start md:items-start">
             <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Work On<br />Real<br />Tasks
             </h3>
@@ -132,8 +132,8 @@ const AboutUs = ({
         >
           <p className="text-base sm:text-xs font-bold uppercase tracking-[0.2em]">02 — Deep Understanding</p>
           <hr className="my-[2vw] border-none border-t border-black/60" />
-          <div>
-            <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
+          <div className="flex-1 flex items-center justify-center text-center md:text-left md:justify-start md:items-start">
+            <h3 className="text-[clamp(2.5rem,10vw,14rem)] sm:text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Professional<br />Environment
             </h3>
           </div>
@@ -149,7 +149,7 @@ const AboutUs = ({
         >
           <p className="text-base sm:text-xs font-bold uppercase tracking-[0.2em]">03 — Tangible Portfolio</p>
           <hr className="my-[2vw] border-none border-t border-white/50" />
-          <div>
+          <div className="flex-1 flex items-center justify-center text-center md:text-left md:justify-start md:items-start">
             <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Real<br />Projects
             </h3>
@@ -166,7 +166,7 @@ const AboutUs = ({
         >
           <p className="text-base sm:text-xs font-bold uppercase tracking-[0.2em]">04 — Unstoppable Confidence</p>
           <hr className="my-[2vw] border-none border-t border-white/40 opacity-100" />
-          <div>
+          <div className="flex-1 flex items-center justify-center text-center md:text-left md:justify-start md:items-start">
             <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Interview<br />Ready
             </h3>
