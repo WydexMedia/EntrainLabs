@@ -3,9 +3,10 @@
 import { Instrument_Serif } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { EnrollmentForm } from "@/components/ui/enrollment-form";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ function HeroSection({ avatarList }: HeroSectionProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -100,7 +102,10 @@ function HeroSection({ avatarList }: HeroSectionProps) {
                 ref={ctaRef}
                 className="flex items-center flex-col md:flex-row justify-center gap-8"
               >
-                <Button className="relative text-sm font-medium rounded-full h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer">
+                <Button 
+                  onClick={() => setIsFormOpen(true)}
+                  className="relative text-sm font-medium rounded-full h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer"
+                >
                   <span className="relative z-10 transition-all duration-500">
                     Start Learning
                   </span>
@@ -143,6 +148,8 @@ function HeroSection({ avatarList }: HeroSectionProps) {
           </div>
         </div>
       </div>
+      
+      <EnrollmentForm open={isFormOpen} onOpenChange={setIsFormOpen} />
     </section>
   );
 }
