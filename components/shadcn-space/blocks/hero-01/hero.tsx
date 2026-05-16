@@ -149,7 +149,12 @@ function HeroSection({ avatarList }: HeroSectionProps) {
         </div>
       </div>
       
-      <EnrollmentForm open={isFormOpen} onOpenChange={setIsFormOpen} />
+      <EnrollmentForm 
+        open={isFormOpen} 
+        onOpenChange={setIsFormOpen}
+        autoTrigger={true}
+        triggerDelay={15000} // Show popup after 15 seconds
+      />
     </section>
   );
 }

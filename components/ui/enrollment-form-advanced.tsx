@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
@@ -13,44 +13,99 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowUpRight } from "lucide-react";
 
-interface EnrollmentFormProps {
+interface EnrollmentFormAdvancedProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  
+  // Trigger options
   autoTrigger?: boolean;
-  triggerDelay?: number; // in milliseconds
+  triggerDelay?: number; // Time delay in milliseconds
+  scrollTrigger?: boolean; // Trigger on scroll percentage
+  scrollPercentage?: number; // Percentage of page scrolled (0-100)
+  exitIntent?: boolean; // Trigger when mouse leaves viewport (desktop only)
+  
+  // Control options
+  showOnce?: boolean; // Show only once per session (default: true)
+  storageKey?: string; // Custom storage key
 }
 
-export function EnrollmentForm({ 
+export function EnrollmentFormAdvanced({ 
   open, 
   onOpenChange,
   autoTrigger = false,
-  triggerDelay = 10000 // default 10 seconds
-}: EnrollmentFormProps) {
+  triggerDelay = 15000,
+  scrollTrigger = false,
+  scrollPercentage = 50,
+  exitIntent = false,
+  showOnce = true,
+  storageKey = 'enrollmentPopupShown'
+}: EnrollmentFormAdvancedProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
   });
 
-  useEffect(() => {
-    if (!autoTrigger) return;
+  // Check if popup should be shown
+  const shouldShow = useCallback(() => {
+    if (!showOnce) return true;
+    return !sessionStorage.getItem(storageKey);
+  }, [showOnce, storageKey]);
 
-    // Check if popup was already shown in this session
-    const popupShown = sessionStorage.getItem('enrollmentPopupShown');
-    
-    if (popupShown) {
-      return; // Don't show again in this session
+  // Mark popup as shown
+  const markAsShown = useCallback(() => {
+    if (showOnce) {
+      sessionStorage.setItem(storageKey, 'true');
     }
+  }, [showOnce, storageKey]);
 
-    // Set timer to show popup after delay
+  // Time-based trigger
+  useEffect(() => {
+    if (!autoTrigger || !shouldShow()) return;
+
     const timer = setTimeout(() => {
       onOpenChange(true);
-      sessionStorage.setItem('enrollmentPopupShown', 'true');
+      markAsShown();
     }, triggerDelay);
 
-    // Cleanup timer on unmount
     return () => clearTimeout(timer);
-  }, [autoTrigger, triggerDelay, onOpenChange]);
+  }, [autoTrigger, triggerDelay, shouldShow, markAsShown, onOpenChange]);
+
+  // Scroll-based trigger
+  useEffect(() => {
+    if (!scrollTrigger || !shouldShow()) return;
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+
+      if (scrollPercent >= scrollPercentage) {
+        onOpenChange(true);
+        markAsShown();
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrollTrigger, scrollPercentage, shouldShow, markAsShown, onOpenChange]);
+
+  // Exit intent trigger (desktop only)
+  useEffect(() => {
+    if (!exitIntent || !shouldShow()) return;
+
+    const handleMouseLeave = (e: MouseEvent) => {
+      // Only trigger if mouse is leaving from the top of the viewport
+      if (e.clientY <= 0) {
+        onOpenChange(true);
+        markAsShown();
+      }
+    };
+
+    document.addEventListener('mouseleave', handleMouseLeave);
+    return () => document.removeEventListener('mouseleave', handleMouseLeave);
+  }, [exitIntent, shouldShow, markAsShown, onOpenChange]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
