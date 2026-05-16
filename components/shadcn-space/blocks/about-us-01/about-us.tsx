@@ -1,8 +1,7 @@
 "use client"
 
-import React from "react";
 import { cn } from "@/lib/utils";
-import { LucideIcon, BookOpen, Briefcase, GraduationCap, Users, Rocket, Target, Lightbulb, Award, TrendingUp } from "lucide-react";
+import { LucideIcon, BookOpen, Briefcase, GraduationCap, Users, Rocket } from "lucide-react";
 import { Instrument_Serif } from "next/font/google";
 import { motion } from "motion/react";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
@@ -91,115 +90,89 @@ const AboutUs = ({
 }) => {
   return (
     <>
-      {/* Intro Section */}
-      <section className="lg:py-20 sm:py-12 py-8" style={{ backgroundColor: '#000', color: '#fff' }}>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-16">
-          <div className="flex flex-col items-center justify-center gap-8 md:gap-12">
-            {/* Main Heading */}
-            <motion.div
-              initial={{ y: -40, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className="flex flex-col items-center justify-center gap-6"
-            >
-              <h2 className="text-[clamp(2.5rem,8vw,8rem)] font-bold text-white text-center tracking-tight leading-[0.9]">
-                Don't Just Learn — Start Doing
-              </h2>
-              <p className="text-[clamp(1rem,2.5vw,1.75rem)] text-center text-white/80 max-w-3xl font-normal leading-relaxed">
-                Learn from the Best Digital Marketing Academy in Kerala
-              </p>
-            </motion.div>
-
-            {/* Subheading */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className="text-center max-w-4xl"
-            >
-              <p className="text-[clamp(0.95rem,1.5vw,1.25rem)] text-white leading-relaxed">
-                Most courses only teach theory.
-              </p>
-              <p className="text-[clamp(0.95rem,1.5vw,1.25rem)] text-white leading-relaxed mt-2">
-                We go beyond — powered by insights and strategies used by the best digital marketing academy in Kerala, helping you build real, job-ready skills.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Story Scroll Section */}
       <FlowArt aria-label="Learn by Doing">
         <FlowSection 
-          aria-label="Real Execution" 
+          aria-label="Don't Just Learn — Start Doing" 
           style={{ backgroundColor: '#fd5200', color: '#fff' }}
         >
-          <p className="text-xs font-bold uppercase tracking-[0.2em]">01 — Real Execution</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em]">Learn by Doing</p>
           <hr className="my-[2vw] border-none border-t border-white/40 opacity-100" />
-          <div className="flex items-center gap-6">
-            <Target className="w-16 h-16 sm:w-20 sm:h-20 text-white/90" />
-            <h3 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-tight">
-              Work On<br />Real Tasks
+          <div>
+            <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
+              Don't Just<br />Learn —<br />Start Doing
             </h3>
           </div>
           <hr className="my-[2vw] border-none border-t border-white/40 opacity-100" />
-          <p className="mt-auto max-w-[50ch] text-[clamp(1rem,2.5vw,1.75rem)] font-normal leading-relaxed">
+          <p className="mt-auto max-w-[50ch] text-[clamp(1rem,2.5vw,2rem)] font-normal leading-relaxed">
+            Learn from the Best Digital Marketing Academy in Kerala. Most courses only teach theory. We go beyond — powered by insights and strategies used by the best digital marketing academy in Kerala, helping you build real, job-ready skills.
+          </p>
+        </FlowSection>
+
+        <FlowSection 
+          aria-label="Real Execution" 
+          style={{ backgroundColor: '#000', color: '#fff' }}
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.2em]">01 — Real Execution</p>
+          <hr className="my-[2vw] border-none border-t border-white/60" />
+          <div>
+            <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
+              Work On<br />Real<br />Tasks
+            </h3>
+          </div>
+          <hr className="my-[2vw] border-none border-t border-white/60" />
+          <p className="mt-auto max-w-[50ch] text-[clamp(1rem,2.5vw,2rem)] font-normal leading-relaxed">
             You don't just watch tutorials — you work on real tasks. Gain hands-on experience that prepares you for actual job roles from day one.
           </p>
         </FlowSection>
 
         <FlowSection 
           aria-label="Deep Understanding" 
-          style={{ backgroundColor: '#000', color: '#fff' }}
+          style={{ backgroundColor: '#F5F0E8', color: '#000' }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em]">02 — Deep Understanding</p>
-          <hr className="my-[2vw] border-none border-t border-white/60" />
-          <div className="flex items-center gap-6">
-            <Lightbulb className="w-16 h-16 sm:w-20 sm:h-20 text-white/90" />
-            <h3 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-tight">
+          <hr className="my-[2vw] border-none border-t border-black/60" />
+          <div>
+            <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Professional<br />Environment
             </h3>
           </div>
-          <hr className="my-[2vw] border-none border-t border-white/60" />
-          <p className="max-w-[50ch] text-[clamp(1rem,2.5vw,1.75rem)] font-normal leading-relaxed">
+          <hr className="my-[2vw] border-none border-t border-black/60" />
+          <p className="max-w-[50ch] text-[clamp(1rem,2.5vw,2rem)] font-normal leading-relaxed">
             Understand how work happens in a professional environment. At the best digital marketing academy in Kerala, you learn strategies, workflows, and decision-making — not just tools.
           </p>
         </FlowSection>
 
         <FlowSection 
           aria-label="Tangible Portfolio" 
-          style={{ backgroundColor: '#F5F0E8', color: '#000' }}
+          style={{ backgroundColor: '#1A3DE8', color: '#fff' }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em]">03 — Tangible Portfolio</p>
-          <hr className="my-[2vw] border-none border-t border-black/60" />
-          <div className="flex items-center gap-6">
-            <Award className="w-16 h-16 sm:w-20 sm:h-20 text-black/90" />
-            <h3 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-tight">
+          <hr className="my-[2vw] border-none border-t border-white/50" />
+          <div>
+            <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Real<br />Projects
             </h3>
           </div>
-          <hr className="my-[2vw] border-none border-t border-black/60" />
-          <p className="max-w-[50ch] text-[clamp(1rem,2.5vw,1.75rem)] font-normal leading-relaxed">
+          <hr className="my-[2vw] border-none border-t border-white/50" />
+          <p className="max-w-[50ch] text-[clamp(1rem,2.5vw,2rem)] font-normal leading-relaxed">
             Build a portfolio with real projects and results. With guidance from the best digital marketing academy in Kerala, showcase what you've done — not just certificates.
           </p>
         </FlowSection>
 
         <FlowSection 
           aria-label="Unstoppable Confidence" 
-          style={{ backgroundColor: '#1A3DE8', color: '#fff' }}
+          style={{ backgroundColor: '#10b981', color: '#fff' }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em]">04 — Unstoppable Confidence</p>
-          <hr className="my-[2vw] border-none border-t border-white/50" />
-          <div className="flex items-center gap-6">
-            <TrendingUp className="w-16 h-16 sm:w-20 sm:h-20 text-white/90" />
-            <h3 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-tight">
+          <hr className="my-[2vw] border-none border-t border-white/40 opacity-100" />
+          <div>
+            <h3 className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight">
               Interview<br />Ready
             </h3>
           </div>
-          <hr className="my-[2vw] border-none border-t border-white/50" />
-          <p className="mt-auto max-w-[50ch] text-[clamp(1rem,2.5vw,1.75rem)] font-normal leading-relaxed">
+          <hr className="my-[2vw] border-none border-t border-white/40 opacity-100" />
+          <p className="mt-auto max-w-[50ch] text-[clamp(1rem,2.5vw,2rem)] font-normal leading-relaxed">
             Walk into interviews with confidence. Because at the best digital marketing academy in Kerala, you've already done the work, not just learned about it.
           </p>
         </FlowSection>
