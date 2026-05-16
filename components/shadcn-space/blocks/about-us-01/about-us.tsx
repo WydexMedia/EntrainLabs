@@ -225,7 +225,7 @@ const AboutUs = ({
           />
         </div>
         
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-16 relative z-10">
+        <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-16 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
