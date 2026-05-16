@@ -12,16 +12,19 @@ interface ContactFormData {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string;
   message: string;
   terms: boolean;
-  services: string[];
+  courses: string[];
 }
 
-const serviceOptions = [
+const courseOptions = [
   "Performance Marketing",
   "Web Development",
-  "Branding & marketing",
-  "SEO training",
+  "SEO Training",
+  "Social Media Marketing",
+  "Content Creation",
+  "Email Marketing",
 ];
 
 const ContactForm = () => {
@@ -29,9 +32,10 @@ const ContactForm = () => {
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
     message: "",
     terms: false,
-    services: [],
+    courses: [],
   });
 
   const handleChange = (
@@ -45,17 +49,37 @@ const ContactForm = () => {
     setFormData((prev) => ({ ...prev, terms: checked }));
   };
 
-  const handleServiceChange = (service: string, checked: boolean) => {
+  const handleCourseChange = (course: string, checked: boolean) => {
     setFormData((prev) => ({
       ...prev,
-      services: checked
-        ? [...prev.services, service]
-        : prev.services.filter((item) => item !== service),
+      courses: checked
+        ? [...prev.courses, course]
+        : prev.courses.filter((item) => item !== course),
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Create WhatsApp message
+    const message = `*New Inquiry from Entrain Labs Website*
+
+*Name:* ${formData.firstName} ${formData.lastName}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone}
+*Interested Courses:* ${formData.courses.length > 0 ? formData.courses.join(", ") : "Not specified"}
+
+*Message:*
+${formData.message}`;
+
+    // WhatsApp number (replace with your actual number)
+    const whatsappNumber = "919745020223";
+    
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Open WhatsApp with pre-filled message
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");
   };
 
   return (
@@ -63,7 +87,7 @@ const ContactForm = () => {
       <Card className="rounded-md border-border bg-card p-5 shadow-sm animate-in fade-in slide-in-from-right-10 duration-1000 delay-100 ease-in-out fill-mode-both sm:p-6 lg:p-8">
         <CardHeader className="p-0">
           <CardTitle className="text-2xl font-semibold tracking-tight text-foreground">
-            Get a free quote
+            Enroll Now
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -92,7 +116,7 @@ const ContactForm = () => {
             <Input
               id="email"
               name="email"
-              placeholder="youremail@website.com"
+              placeholder="youremail@example.com"
               type="email"
               value={formData.email}
               onChange={handleChange}
@@ -100,25 +124,36 @@ const ContactForm = () => {
               required
             />
 
+            <Input
+              id="phone"
+              name="phone"
+              placeholder="Phone number"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              className="h-11 bg-background"
+              required
+            />
+
             <div className="space-y-3">
               <p className="text-sm font-medium text-foreground">
-                Web design services
+                Courses you&apos;re interested in
               </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {serviceOptions.map((service) => (
+                {courseOptions.map((course) => (
                   <Label
-                    key={service}
-                    htmlFor={service}
+                    key={course}
+                    htmlFor={course}
                     className="flex cursor-pointer items-center gap-3 rounded-md border border-border bg-background px-3 py-3 text-sm font-normal text-foreground transition-colors hover:bg-muted/50"
                   >
                     <Checkbox
-                      id={service}
-                      checked={formData.services.includes(service)}
+                      id={course}
+                      checked={formData.courses.includes(course)}
                       onCheckedChange={(checked) =>
-                        handleServiceChange(service, checked === true)
+                        handleCourseChange(course, checked === true)
                       }
                     />
-                    {service}
+                    {course}
                   </Label>
                 ))}
               </div>
@@ -127,7 +162,7 @@ const ContactForm = () => {
             <Textarea
               id="message"
               name="message"
-              placeholder="Let us know about your project"
+              placeholder="Tell us about your goals and what you'd like to learn"
               value={formData.message}
               onChange={handleChange}
               className="min-h-28 resize-none bg-background"
@@ -146,7 +181,7 @@ const ContactForm = () => {
                 htmlFor="terms"
                 className="text-sm font-normal leading-relaxed text-muted-foreground"
               >
-                I have read and acknowledge the Terms and Conditions
+                I agree to receive course information and updates via WhatsApp
               </Label>
             </div>
 
@@ -155,7 +190,7 @@ const ContactForm = () => {
               size="lg"
               className="h-11 w-full rounded-md"
             >
-              Submit Inquiry
+              Send via WhatsApp
             </Button>
           </form>
         </CardContent>

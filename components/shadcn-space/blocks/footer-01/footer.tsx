@@ -84,10 +84,6 @@ const footerSections: FooterData[] = [
     title: "Other Pages",
     links: [
       {
-        title: "Error 404",
-        href: "#",
-      },
-      {
         title: "Terms & Conditions",
         href: "#",
       },
@@ -113,8 +109,7 @@ const Footer = () => {
                 </a>
 
                 <p className="text-base font-normal text-muted-foreground">
-                  Empowering businesses with innovative solutions. Let's create
-                  something amazing together.
+                  Empowering future digital marketers with industry-leading training and real-world experience. Start your journey with us today.
                 </p>
 
                 {/* social links */}
@@ -138,7 +133,9 @@ const Footer = () => {
                     <DribbbleIcon />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/entrain_labs?igsh=MWE2YjY0OXV4bmU0cQ=="
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground"
                   >
                     <InstagramIcon />
@@ -179,7 +176,7 @@ const Footer = () => {
                 <ul className="flex flex-col gap-3">
                   <li>
                     <p className="text-base font-normal text-muted-foreground">
-                      81 Rivington Street London EC2A 3AY
+                      Entrain labs, Veemboor - Mariyad School Rd, Manjeri, Kerala 673642
                     </p>
                   </li>
                   <li>
@@ -192,10 +189,10 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="tel:+01051923556"
+                      href="tel:+919745020223"
                       className="text-base font-normal text-muted-foreground hover:text-foreground"
                     >
-                      0105 192 3556
+                      +91 97450 20223
                     </a>
                   </li>
                 </ul>

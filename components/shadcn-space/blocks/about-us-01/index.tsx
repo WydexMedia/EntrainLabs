@@ -25,25 +25,10 @@ const aboutusData = [
     }
 ];
 
-const statisticsCounter = [
-    {
-        title: "Students Trained",
-        count: 500
-    },
-    {
-        title: "Live Projects",
-        count: 100
-    },
-    {
-        title: "Industry Partners",
-        count: 25
-    },
-]
-
 const AboutAndStats01 = () => {
   return (
     <>
-      <AboutUs aboutusData={aboutusData} statisticsCounter={statisticsCounter} />
+      <AboutUs aboutusData={aboutusData} />
     </>
   );
 };
