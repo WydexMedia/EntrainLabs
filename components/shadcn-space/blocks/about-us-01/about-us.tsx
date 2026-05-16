@@ -133,7 +133,7 @@ const AboutUs = ({
       <FlowArt aria-label="Learn by Doing">
         <FlowSection 
           aria-label="Real Execution" 
-          style={{ backgroundColor: '#3b82f6', color: '#fff' }}
+          style={{ backgroundColor: '#fd5200', color: '#fff' }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em]">01 — Real Execution</p>
           <hr className="my-[2vw] border-none border-t border-white/40 opacity-100" />
@@ -151,17 +151,17 @@ const AboutUs = ({
 
         <FlowSection 
           aria-label="Deep Understanding" 
-          style={{ backgroundColor: '#8b5cf6', color: '#fff' }}
+          style={{ backgroundColor: '#000', color: '#fff' }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em]">02 — Deep Understanding</p>
-          <hr className="my-[2vw] border-none border-t border-white/40" />
+          <hr className="my-[2vw] border-none border-t border-white/60" />
           <div className="flex items-center gap-6">
             <Lightbulb className="w-16 h-16 sm:w-20 sm:h-20 text-white/90" />
             <h3 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-tight">
               Professional<br />Environment
             </h3>
           </div>
-          <hr className="my-[2vw] border-none border-t border-white/40" />
+          <hr className="my-[2vw] border-none border-t border-white/60" />
           <p className="max-w-[50ch] text-[clamp(1rem,2.5vw,1.75rem)] font-normal leading-relaxed">
             Understand how work happens in a professional environment. At the best digital marketing academy in Kerala, you learn strategies, workflows, and decision-making — not just tools.
           </p>
@@ -169,17 +169,17 @@ const AboutUs = ({
 
         <FlowSection 
           aria-label="Tangible Portfolio" 
-          style={{ backgroundColor: '#10b981', color: '#fff' }}
+          style={{ backgroundColor: '#F5F0E8', color: '#000' }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em]">03 — Tangible Portfolio</p>
-          <hr className="my-[2vw] border-none border-t border-white/40" />
+          <hr className="my-[2vw] border-none border-t border-black/60" />
           <div className="flex items-center gap-6">
-            <Award className="w-16 h-16 sm:w-20 sm:h-20 text-white/90" />
+            <Award className="w-16 h-16 sm:w-20 sm:h-20 text-black/90" />
             <h3 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-tight">
               Real<br />Projects
             </h3>
           </div>
-          <hr className="my-[2vw] border-none border-t border-white/40" />
+          <hr className="my-[2vw] border-none border-t border-black/60" />
           <p className="max-w-[50ch] text-[clamp(1rem,2.5vw,1.75rem)] font-normal leading-relaxed">
             Build a portfolio with real projects and results. With guidance from the best digital marketing academy in Kerala, showcase what you've done — not just certificates.
           </p>
@@ -187,17 +187,17 @@ const AboutUs = ({
 
         <FlowSection 
           aria-label="Unstoppable Confidence" 
-          style={{ backgroundColor: '#f97316', color: '#fff' }}
+          style={{ backgroundColor: '#1A3DE8', color: '#fff' }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.2em]">04 — Unstoppable Confidence</p>
-          <hr className="my-[2vw] border-none border-t border-white/40" />
+          <hr className="my-[2vw] border-none border-t border-white/50" />
           <div className="flex items-center gap-6">
             <TrendingUp className="w-16 h-16 sm:w-20 sm:h-20 text-white/90" />
             <h3 className="text-[clamp(2.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-tight">
               Interview<br />Ready
             </h3>
           </div>
-          <hr className="my-[2vw] border-none border-t border-white/40" />
+          <hr className="my-[2vw] border-none border-t border-white/50" />
           <p className="mt-auto max-w-[50ch] text-[clamp(1rem,2.5vw,1.75rem)] font-normal leading-relaxed">
             Walk into interviews with confidence. Because at the best digital marketing academy in Kerala, you've already done the work, not just learned about it.
           </p>
