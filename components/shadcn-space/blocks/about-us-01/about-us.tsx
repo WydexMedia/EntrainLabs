@@ -91,7 +91,7 @@ const AboutUs = ({
   return (
     <>
       {/* Intro Section */}
-      <section className="lg:py-20 sm:py-12 py-8">
+      <section className="lg:py-20 sm:py-12 py-8" style={{ backgroundColor: '#000', color: '#fff' }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-16">
           <div className="flex flex-col items-center justify-center gap-8 md:gap-12">
             {/* Main Heading */}
@@ -102,10 +102,10 @@ const AboutUs = ({
               transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
               className="flex flex-col items-center justify-center gap-6"
             >
-              <h2 className="text-[clamp(2.5rem,8vw,8rem)] font-bold text-foreground text-center tracking-tight leading-[0.9]">
+              <h2 className="text-[clamp(2.5rem,8vw,8rem)] font-bold text-white text-center tracking-tight leading-[0.9]">
                 Don't Just Learn — Start Doing
               </h2>
-              <p className="text-[clamp(1rem,2.5vw,1.75rem)] text-center text-muted-foreground max-w-3xl font-normal leading-relaxed">
+              <p className="text-[clamp(1rem,2.5vw,1.75rem)] text-center text-white/80 max-w-3xl font-normal leading-relaxed">
                 Learn from the Best Digital Marketing Academy in Kerala
               </p>
             </motion.div>
@@ -118,10 +118,10 @@ const AboutUs = ({
               transition={{ duration: 0.8, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
               className="text-center max-w-4xl"
             >
-              <p className="text-[clamp(0.95rem,1.5vw,1.25rem)] text-foreground leading-relaxed">
+              <p className="text-[clamp(0.95rem,1.5vw,1.25rem)] text-white leading-relaxed">
                 Most courses only teach theory.
               </p>
-              <p className="text-[clamp(0.95rem,1.5vw,1.25rem)] text-foreground leading-relaxed mt-2">
+              <p className="text-[clamp(0.95rem,1.5vw,1.25rem)] text-white leading-relaxed mt-2">
                 We go beyond — powered by insights and strategies used by the best digital marketing academy in Kerala, helping you build real, job-ready skills.
               </p>
             </motion.div>
@@ -205,7 +205,7 @@ const AboutUs = ({
       </FlowArt>
 
       {/* Your Journey Section */}
-      <section className="lg:py-20 sm:py-12 py-8">
+      <section className="lg:py-20 sm:py-12 py-8" style={{ backgroundColor: '#000', color: '#fff' }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -216,14 +216,14 @@ const AboutUs = ({
           >
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
               <div>
-                <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/70">
                   Your Journey
                 </span>
-                <h3 className={cn("mt-1.5 text-3xl sm:text-4xl font-normal leading-tight", instrumentSerif.className)}>
+                <h3 className={cn("mt-1.5 text-3xl sm:text-4xl font-normal leading-tight text-white", instrumentSerif.className)}>
                   From zero to career-ready
                 </h3>
               </div>
-              <p className="text-sm text-muted-foreground max-w-xs sm:text-right leading-relaxed">
+              <p className="text-sm text-white/70 max-w-xs sm:text-right leading-relaxed">
                 What You'll Learn in This Course
               </p>
             </div>
